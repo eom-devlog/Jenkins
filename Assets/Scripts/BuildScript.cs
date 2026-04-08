@@ -1,17 +1,18 @@
 using UnityEditor;
-using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class BuildScript
 {
     public static void PerformBuild()
     {
-        string[] scenes = new[] {
-            "Assets/Scenes/MainScene.unity",
-            "Assets/Scenes/LobbySecne.unity",
-            "Assets/Scenes/BattleScene.unity"
-        };
+        List<string> scenes = new List<string>();
+        foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
+        {
+            if (!scene.enabled) continue;
+            scenes.Add(scene.path);
+        }
 
-
-        BuildPipeline.BuildPlayer(scenes, "Builds/BuildTest.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
+        BuildPipeline.BuildPlayer(scenes.ToArray(), "Builds/BuildTest.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
     }
 }
