@@ -13,7 +13,6 @@ public class BuildScript
             scenes.Add(scene.path);
         }
 
-        Debug.Log("Build");
         BuildPipeline.BuildPlayer(scenes.ToArray(), "Builds/BuildTest.exe", BuildTarget.StandaloneWindows, BuildOptions.None);
     }
 }
